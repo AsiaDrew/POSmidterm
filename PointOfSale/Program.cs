@@ -32,8 +32,9 @@ reader.Close();
 {
     Console.WriteLine("How many would you like?");
     double userInput = double.Parse(Console.ReadLine());
-    for (int i = 0; i < productCount; i++)
+    for (int i = 0; i < userInput; i++)
     {
         userInput++;
     }
+    return userInput;
 }
