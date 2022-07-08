@@ -5,6 +5,11 @@
 //desks, oven, pillows, blankets, tv stand, bunk beds
 //decorative rocks, cinnamonbuns, shrooms, shoe strings
 List<Product> items = new List<Product>();
+List < Product > addToCart = new List < Product > ();
+double subTotal = 0;
+double salesTax = .06;
+double grandTotal = 0;
+
 string filePath = "../../../Products.txt";
 StreamReader reader = new StreamReader(filePath);
 
@@ -27,14 +32,21 @@ while (true)
 //when finished close it 
 reader.Close();
 
-//MAIN PROGRAM
- static double GetItem(double productCount)
+//
+static double subtotals()
 {
+    //Product.WriteList(); writeList needs to be implemented
+    //Product choice; = new Product.addToList(); //addToList needs to be implemented
     Console.WriteLine("How many would you like?");
-    double userInput = double.Parse(Console.ReadLine());
+    double userInput = int.Parse(Console.ReadLine());
+    double subtotal = 0;
     for (int i = 0; i < userInput; i++)
     {
-        userInput++;
+        subtotal += userInput * choice.Price;
     }
     return userInput;
 }
+
+
+
+//MAIN PROGRAM

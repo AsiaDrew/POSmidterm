@@ -23,11 +23,15 @@ namespace PointOfSale
             Price = _price;
         }
         //methods
-        public static void subTotals(double _price)
+        public static void Inventory(List<Product> productList)
         {
-            return Price * ;
-
+            foreach (Product p in productList)
+            {
+                Console.WriteLine($"{productList.IndexOf(p) + 1}." + p.ToString());
+            }
         }
-      
+
+
+
     }
 }
