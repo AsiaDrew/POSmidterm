@@ -31,7 +31,17 @@ namespace PointOfSale
             }
         }
 
+        //Method adjust inventory after a sale
+        public static void RemoveFromInventory(int index, List<Product> productList)
+        {
+            productList.RemoveAt(index - 1);
+        }
 
+        //Method to handle returns
+        public static void Returns(Product returned, List<Product> productList)
+        {
+            productList.Add(returned);
+        }
 
     }
 }
