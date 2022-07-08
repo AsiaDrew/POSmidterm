@@ -46,5 +46,83 @@ namespace PointOfSale
                 }
             }
         }
+
+        //credit card:
+        ///get credit card number
+        static string GetCreditNumber()
+        {
+            while (true)
+            {
+                Console.WriteLine("Please enter your credit card number");
+                string creditCardNumber = Console.ReadLine().Trim().ToLower();
+                bool isNumeric = double.TryParse($"{creditCardNumber}", out _);
+
+                if (isNumeric && creditCardNumber.Length == 16)
+                {
+                    return creditCardNumber;
+                }
+                else
+                {
+                    Console.WriteLine("That is not a valid credit card number. Please try again.");
+                    continue;
+                }
+            }
+        }
+        //get expiration month
+        static string GetCreditCardMonth()
+        {
+            while (true)
+            {
+                Console.WriteLine("In which month does your credit card expire? Please enter in MM format.");
+                string creditCardMonth = Console.ReadLine().Trim().ToLower();
+                bool month = double.TryParse($"{creditCardMonth}", out _);
+                int monthNum = int.Parse(creditCardMonth);
+
+                if (month && creditCardMonth.Length == 2 && monthNum <= 12)
+                {
+                    return creditCardMonth;
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("That is not a valid expiration date. Please try again.");
+                    continue;
+                }
+            }
+        }
+        //get expiration year
+        string GetCreditCardYear()
+        {
+            while (true)
+            {
+                Console.WriteLine();
+                Console.WriteLine("In which year does your credit card expire? Please enter in YYYY format");
+                string creditCardYear = Console.ReadLine().Trim().ToLower();
+                bool year = double.TryParse($"{creditCardYear}", out _);
+                int yearNum = int.Parse(creditCardYear);
+
+                if (year && creditCardYear.Length == 4 && yearNum > 2021)
+                {
+                    return creditCardYear;
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("That is not a valid expiration date, try again.");
+                    continue;
+                }
+            }
+        }
+        //get cvv
+        static int GetCVV()
+        {
+            while (true)
+            {
+                Console.WriteLine("Please enter your CVV");
+                int cvv = int.Parse(Console.ReadLine());
+                return cvv;
+            }
+        }
+
     }
 }
