@@ -27,7 +27,7 @@ namespace PointOfSale
         {
             foreach (Product p in productList)
             {
-                Console.WriteLine($"{productList.IndexOf(p) + 1}." + p.ToString());
+                Console.WriteLine(String.Format("{0, -4}{1,116}",$"{productList.IndexOf(p) + 1}.", p.ToString()));
             }
         }
 
@@ -41,6 +41,11 @@ namespace PointOfSale
         public static void Returns(Product returned, List<Product> productList)
         {
             productList.Add(returned);
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0, -20}{1, -10}{2, -78}{3, -8}",$"{Name}", $"{Category}", $"{Description}", $"{Price}");
         }
 
     }

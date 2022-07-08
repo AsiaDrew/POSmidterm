@@ -24,7 +24,7 @@ while (true)
     else
     {
         string[] values = line.Split(',');
-        Product newProduct = new Product();
+        Product newProduct = new Product(values[0], values[1], values[2], double.Parse(values[3]));
         items.Add(newProduct);
     }
 }
@@ -32,20 +32,43 @@ while (true)
 //when finished close it 
 reader.Close();
 
+Product.Inventory(items);
+
+
 //
-static double subtotals()
+//static double subtotals()
+//{
+//    Product.Inventory(); // display items
+//    //Product choice; = new Product.addToList(); //addToList needs to be implemented
+//    Console.WriteLine("How many would you like?");
+//    double userInput = int.Parse(Console.ReadLine());
+//    double subtotal = 0;
+//    for (int i = 0; i < userInput; i++)
+//    {
+//        subtotal += userInput * choice.Price;
+//    }
+//    return userInput;
+//}
+
+static void Tender(double grandTotal)
 {
-    //Product.WriteList(); writeList needs to be implemented
-    //Product choice; = new Product.addToList(); //addToList needs to be implemented
-    Console.WriteLine("How many would you like?");
-    double userInput = int.Parse(Console.ReadLine());
-    double subtotal = 0;
-    for (int i = 0; i < userInput; i++)
+    //tender
+    Console.WriteLine("How much are you paying with?");
+    double tender = double.Parse(Console.ReadLine());
+    if (tender >= grandTotal)
     {
-        subtotal += userInput * choice.Price;
+        Console.WriteLine($"Thanks, your change is ${Math.Round(tender - grandTotal, 2)} ");
     }
-    return userInput;
+    else if (tender < grandTotal)
+    {
+        Console.WriteLine($"Thats not enough, {Math.Round(grandTotal - tender, 2)}");
+    }
+    else
+    {
+        Console.WriteLine("Invalid, try again.");
+    }
 }
+
 
 
 
