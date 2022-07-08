@@ -1,9 +1,6 @@
 ﻿using PointOfSale;
 
-//12 items
-//meatball, coffee, hotdog, shelves, lamps, end tables
-//desks, oven, pillows, blankets, tv stand, bunk beds
-//decorative rocks, cinnamonbuns, shrooms, shoe strings
+//Create list of 12 store items
 List<Product> items = new List<Product>();
 //<<<<<<< HEAD
 //List<Product> addToCart = new List<Product>();
@@ -20,7 +17,7 @@ StreamReader reader = new StreamReader(filePath);
 while (true)
 {
     string line = reader.ReadLine();
-    if (line == null)//it pulled out current student and found nothing
+    if (line == null)//it pulled out current product and found nothing
     {
         break;
     }
@@ -32,41 +29,43 @@ while (true)
     }
 }
 
-//when finished close it 
+//Close reader
 reader.Close();
 
 
-
-static List<Product> addToCart(List<Product> list)
+//Method to add items to cart
+static List<Product> addToCart(List<Product> productList)
 {
-    List<Product> itemList = new List<Product>();
-    Product.Inventory(list); // display items
-    int choice = Validator.Validator.GetUserNumberInt("What product would you like to add to your cart?");
-    itemList.Add(list[choice - 1]); //addToList needs to be implemented
+    List<Product> CartList = new List<Product>();
+    Product.Inventory(productList); // display items
+    int choice = Validator.Validator.GetUserNumberInt("\nWhat product would you like to add to your cart?");
+    int userInput = Validator.Validator.GetUserNumberInt("How many would you like?");
+    Product[] products = new Product[userInput];
+    Array.Fill(products, productList[choice - 1]);
+    CartList.AddRange(products);
     Console.WriteLine($"You have chosen: ");
-
-    return itemList;
+    return CartList;
 }
 
   
 
 
 
-
+//Display selected item
 List<Product> Cart = addToCart(items);
 Product.Inventory(Cart);
 
+
+//Method to calculate subtotal
 //static double subtotals()
 //{
-
-
 //    Console.WriteLine("How many would you like?");
 //    double userInput = int.Parse(Console.ReadLine());
 //    double subtotal = 0;
 //    for (int i = 0; i < userInput; i++)
-//    {
-//        subtotal += userInput * choice.Price;
-//    }
+//{
+//    subtotal += userInput * choice.Price;
+//}
 //    return userInput;
 //}
 
