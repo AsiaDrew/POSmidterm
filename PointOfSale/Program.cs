@@ -5,7 +5,10 @@
 //desks, oven, pillows, blankets, tv stand, bunk beds
 //decorative rocks, cinnamonbuns, shrooms, shoe strings
 List<Product> items = new List<Product>();
-List<Product> addToCart = new List<Product>();
+//<<<<<<< HEAD
+//List<Product> addToCart = new List<Product>();
+//=======
+
 double subTotal = 0;
 double salesTax = .06;
 double grandTotal = 0;
@@ -24,7 +27,7 @@ while (true)
     else
     {
         string[] values = line.Split(',');
-        Product newProduct = new Product();
+        Product newProduct = new Product(values[0], values[1], values[2], double.Parse(values[3]));
         items.Add(newProduct);
     }
 }
@@ -32,19 +35,17 @@ while (true)
 //when finished close it 
 reader.Close();
 
-//
-static double subtotals()
+
+
+static List<Product> addToCart(List<Product> list)
 {
-    //Product.WriteList(); writeList needs to be implemented
-    //Product choice; = new Product.addToList(); //addToList needs to be implemented
-    Console.WriteLine("How many would you like?");
-    double userInput = int.Parse(Console.ReadLine());
-    double subtotal = 0;
-    for (int i = 0; i < userInput; i++)
-    {
-        subtotal += userInput * choice.Price;
-    }
-    return userInput;
+    List<Product> itemList = new List<Product>();
+    Product.Inventory(list); // display items
+    int choice = Validator.Validator.GetUserNumberInt("What product would you like to add to your cart?");
+    itemList.Add(list[choice - 1]); //addToList needs to be implemented
+    Console.WriteLine($"You have chosen: ");
+
+    return itemList;
 }
 
     //tender
@@ -160,6 +161,30 @@ static string CheckPayment()
 //            return cvv;
 //    }
 //}
+
+
+
+
+List<Product> Cart = addToCart(items);
+Product.Inventory(Cart);
+
+//static double subtotals()
+//{
+
+
+//    Console.WriteLine("How many would you like?");
+//    double userInput = int.Parse(Console.ReadLine());
+//    double subtotal = 0;
+//    for (int i = 0; i < userInput; i++)
+//    {
+//        subtotal += userInput * choice.Price;
+//    }
+//    return userInput;
+//}
+
+
+
+
 
 
 
