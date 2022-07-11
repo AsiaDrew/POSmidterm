@@ -137,6 +137,8 @@ while (runProgram)
         }
     }
     runProgram = Validator.Validator.GetContinue("Thank you for you purchase! Would you like to start a new order?");
+    Console.Clear();
+
 }
 
 

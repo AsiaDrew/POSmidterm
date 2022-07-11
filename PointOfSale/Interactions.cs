@@ -127,8 +127,15 @@ namespace PointOfSale
             while (true)
             {
                 Console.WriteLine("Please enter your CVV");
-                int cvv = int.Parse(Console.ReadLine());
-                return cvv;
+                if(!int.TryParse(Console.ReadLine(), out int cvv) || cvv.ToString().Length != 3)
+                {
+                    Console.WriteLine("invalid input");
+                }
+                else
+                {
+                    return cvv;
+                }
+                
             }
         }
 
