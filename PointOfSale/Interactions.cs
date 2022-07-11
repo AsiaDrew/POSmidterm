@@ -11,23 +11,30 @@ namespace PointOfSale
         public static void Tender(double grandTotal)
         {
             //tender take money from customer, check amount, and give change if needed
-            Console.WriteLine("How much are you paying with?");
-            double tender = double.Parse(Console.ReadLine());
-            if (tender >= grandTotal)
+            
+            
+            while (true)
             {
-                Console.WriteLine($"Thanks, your change is ${Math.Round(tender - grandTotal, 2)} ");
+                Console.WriteLine("How much are you paying with?");
+                double tender = double.Parse(Console.ReadLine());
+                if (tender >= grandTotal)
+                {
+                    Console.WriteLine($"Thanks, your change is ${Math.Round(tender - grandTotal, 2)} ");
+                    break;
+                }
+                else if (tender < grandTotal)
+                {
+                    Console.WriteLine($"Thats not enough, you still owe ${Math.Round(grandTotal - tender, 2)}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid, try again.");
+                }
             }
-            else if (tender < grandTotal)
-            {
-                Console.WriteLine($"Thats not enough, {Math.Round(grandTotal - tender, 2)}");
-            }
-            else
-            {
-                Console.WriteLine("Invalid, try again.");
-            }
+
         }
         //validate check number
-        static string CheckPayment()
+        public static string CheckPayment()
         {
             //check
             while (true)
@@ -49,7 +56,7 @@ namespace PointOfSale
 
         //credit card:
         ///get credit card number
-        static string GetCreditNumber()
+        public static string GetCreditNumber()
         {
             while (true)
             {
@@ -69,7 +76,7 @@ namespace PointOfSale
             }
         }
         //get expiration month
-        static string GetCreditCardMonth()
+        public static string GetCreditCardMonth()
         {
             while (true)
             {
@@ -91,7 +98,7 @@ namespace PointOfSale
             }
         }
         //get expiration year
-        string GetCreditCardYear()
+        public static string GetCreditCardYear()
         {
             while (true)
             {
@@ -114,7 +121,7 @@ namespace PointOfSale
             }
         }
         //get cvv
-        static int GetCVV()
+        public static int GetCVV()
         {
             while (true)
             {
