@@ -1,16 +1,16 @@
-meatball,food,a ball of meat,.99
-coffee,food,coffee bitter as a swiss winter,1.99
-hotdog,food,the american classic hardware store snack,1.50
-lamp,furniture,the lamp that will be the envy of your whole dorm,44.49
-end table,furniture,the perfect place for your coasters you never use,99.99
-desk,furniture,need a place to sit and cry over a math textbook?,149.99
-oven,kitchen,the ultimate pizza burning accessory of 2022,459.99
-pillow,bedroom,lay your head on a piece of heaven,25.99
-blanket,bedroom,perfect for cold winter nights and the ultimate fort builder,34.49
-decorative rock,garden,because where else will you be hiding your keys?,15.99
-cinammon bun,food,smells a lot better than it tatses,1.99
-shroom,food,we wouldn't be the store we are today without offering you a mushroom or two, 99.99
-stuffed giraffe,toys,rest in peace toy's r us,14.99
-cheese grater,kitchen,master the art of shredding cheese with this handy grater,6.65
-spatula,kitchen,stir some eggs! scoop some frosting! you have the spatch!,2.99
-shoe string,clothing,you ever just need one shoestring? well here you go,5.85
+Meatball,Food,A ball of meat. Yummy.,.99
+Coffee,Food,Coffee bitter as a swiss winter,1.99
+Hotdog,Food,The American classic "leaving a hardware store" snack.,1.50
+Lamp,Furniture,The lamp that will be the envy of your whole dorm!,44.49
+End Table,Furniture,The perfect place to set your coasters that you never use.,99.99
+Desk,Furniture,Need a place to sit and cry over a math textbook?,149.99
+Oven,Kitchen,The ultimate pizza burning accessory of 2022.,459.99
+Pillow,Bedroom,Lay your head on a piece of Heaven,25.99
+Blanket,Bedroom,Perfect for cold winter nights and the ultimate fort builder.,34.49
+Decorative Rock,Garden,Because where else will you be hiding your keys?,15.99
+Cinammon Bun,Food,Smells a lot better than it tatses.,1.99
+Shroom,Food,We wouldn't be the store we are today without offering you a mushroom or two., 99.99
+Stuffed Giraffe,Toys,Rest in peace Toy's R Us...,14.99
+Cheese grater,Kitchen,Master the art of shredding cheese with this handy grater!,6.65
+Spatula,Kitchen,Stir some eggs! Scoop some frosting! You have the spatch!,2.99
+Shoestring,Clothing,You ever just need one shoestring? Well, here you go.,5.85
