@@ -35,9 +35,7 @@ reader.Close();
 
 while (runProgram)
 {
-    Console.WriteLine("Welcome to D.A.T Store!");
-    Console.WriteLine("{0, -4}{1, -20}{2, -10}{3, -78}{4, -8}", "#", "Name", "Item", "Desctription", "Price");
-    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
+    Console.WriteLine("Welcome to D.A.T Store!"); 
     List<Product> Cart = new List<Product>();
     Cart = Cart.Concat(addToCart(items)).ToList();
     while (keepShopping)
@@ -181,6 +179,8 @@ static void ShowCart(List<Product> cart)
 static List<Product> addToCart(List<Product> productList)
 {
     List<Product> CartList = new List<Product>();
+    Console.WriteLine("{0, -4}{1, -20}{2, -10}{3, -78}{4, -8}", "#", "Name", "Item", "Desctription", "Price");
+    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
     Product.Inventory(productList); // display items
     int purchaseItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to add to your cart?");
     int purchaseQuantity = Validator.Validator.GetUserNumberInt("How many would you like?");
