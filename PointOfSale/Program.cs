@@ -167,9 +167,34 @@ static List<Product> addToCart(List<Product> productList)
     Console.WriteLine("{0, -4}{1, -20}{2, -10}{3, -78}{4, -8}", "#", "Name", "Item", "Desctription", "Price");
     Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
     Product.Inventory(productList); // display items
-    int purchaseItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to add to your cart?");
-    int purchaseQuantity = Validator.Validator.GetUserNumberInt("How many would you like?");
+    int purchaseItem = 0;
+    while (true)
+    {
+        purchaseItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to add to your cart?");
+        if (!Validator.Validator.InRange(purchaseItem, 1, productList.Count()))
+        {
+            Console.WriteLine("That product is not an option, please select again.");
+        }
+        else
+        {
+            break;
+        }
+    }
+    int purchaseQuantity = 0;
+    while (true)
+    {
+        purchaseQuantity = Validator.Validator.GetUserNumberInt("How many would you like?");
+        if (purchaseQuantity <= 0)
+        {
+            Console.WriteLine("Please enter a positive quantity");
+        }
+        else
+        {
+            break;
+        }
+    }
+    
     CartList.AddRange(Enumerable.Repeat(productList[purchaseItem - 1], purchaseQuantity).ToList());
-    Console.WriteLine($"You have chosen: {productList[purchaseItem - 1].Name} x {purchaseQuantity} @ ${productList[purchaseItem - 1].Price} ea. = ${productList[purchaseItem - 1].Price * purchaseQuantity}");
+    Console.WriteLine($"You have chosen: {productList[purchaseItem - 1].Name} x {purchaseQuantity} @ ${productList[purchaseItem - 1].Price} ea. = ${(productList[purchaseItem - 1].Price * purchaseQuantity):N2}");
     return CartList;
 }
