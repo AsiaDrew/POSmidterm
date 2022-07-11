@@ -1,23 +1,22 @@
 ﻿using PointOfSale;
 
-//Create list of 12 store items
-List<Product> items = new List<Product>();
-//<<<<<<< HEAD
-//List<Product> addToCart = new List<Product>();
-//=======
-
+//Initialized variables
 double subTotal = 0;
 double salesTax = .06;
 double grandTotal = 0;
 
+
+//Create empty list of store items for StreamReader to populate with products
+List<Product> items = new List<Product>();
+
 string filePath = "../../../Products.txt";
 StreamReader reader = new StreamReader(filePath);
 
-
+//Reads through Products txt file, products are added to List<Product> items
 while (true)
 {
     string line = reader.ReadLine();
-    if (line == null)//it pulled out current product and found nothing
+    if (line == null) //it pulled out current product and found nothing
     {
         break;
     }
@@ -28,7 +27,6 @@ while (true)
         items.Add(newProduct);
     }
 }
-
 //Close reader
 reader.Close();
 
@@ -38,20 +36,16 @@ static List<Product> addToCart(List<Product> productList)
 {
     List<Product> CartList = new List<Product>();
     Product.Inventory(productList); // display items
-    int choice = Validator.Validator.GetUserNumberInt("\nWhat product would you like to add to your cart?");
-    int userInput = Validator.Validator.GetUserNumberInt("How many would you like?");
-    Product[] products = new Product[userInput];
-    Array.Fill(products, productList[choice - 1]);
+    int purchaseItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to add to your cart?");
+    int purchaseQuantity = Validator.Validator.GetUserNumberInt("How many would you like?");
+    Product[] products = new Product[purchaseQuantity];
+    Array.Fill(products, productList[purchaseItem - 1]);
     CartList.AddRange(products);
     Console.WriteLine($"You have chosen: ");
     return CartList;
 }
 
-  
-
-
-
-//Display selected item
+//Display back selected item(s)
 List<Product> Cart = addToCart(items);
 Product.Inventory(Cart);
 
