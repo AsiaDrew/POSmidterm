@@ -9,11 +9,11 @@ namespace PointOfSale
     internal class Product
     {
         //properties
-        private string Name { get; set; }
-        private string Category { get; set; }
-        private string Description { get; set; }
-        private double Price { get; set; }
-        public static int productCount;
+        public string Name { get; set; }
+        public string Category { get; set; }
+        public string Description { get; set; }
+        public double Price { get; set; }
+        
         //constructor
         public Product(string _name, string _category, string _description, double _price)
         {
@@ -31,17 +31,17 @@ namespace PointOfSale
             }
         }
 
-        //Method adjust inventory after a sale
-        public static void RemoveFromInventory(int index, List<Product> productList)
-        {
-            productList.RemoveAt(index - 1);
-        }
+        ////Method adjust inventory after a sale
+        //public static void RemoveFromInventory(int index, List<Product> productList)
+        //{
+        //    productList.RemoveAt(index - 1);
+        //}
 
-        //Method to handle returns
-        public static void Returns(Product returned, List<Product> productList)
-        {
-            productList.Add(returned);
-        }
+        ////Method to handle returns
+        //public static void Returns(Product returned, List<Product> productList)
+        //{
+        //    productList.Add(returned);
+        //}
 
         public override string ToString()
         {
