@@ -33,95 +33,111 @@ reader.Close();
 
 //MAIN PROGRAM
 
-Console.WriteLine("Welcome to D.A.T Store!");
-Console.WriteLine("{0, -4}{1, -20}{2, -10}{3, -78}{4, -8}", "#", "Name", "Item", "Desctription", "Price");
-Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
-List<Product> Cart = new List<Product>();
-Cart = Cart.Concat(addToCart(items)).ToList();
-while (keepShopping)
+while (runProgram)
 {
-    Console.WriteLine("What would you like to do?");
-    Console.WriteLine("1. Shop");
-    Console.WriteLine("2. Go to cart");
-    Console.WriteLine("3. Proceed to checkout");
-    int option = 0;
+    Console.WriteLine("Welcome to D.A.T Store!");
+    Console.WriteLine("{0, -4}{1, -20}{2, -10}{3, -78}{4, -8}", "#", "Name", "Item", "Desctription", "Price");
+    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
+    List<Product> Cart = new List<Product>();
+    Cart = Cart.Concat(addToCart(items)).ToList();
+    while (keepShopping)
+    {
+        Console.WriteLine("What would you like to do?");
+        Console.WriteLine("1. Shop");
+        Console.WriteLine("2. Go to cart");
+        Console.WriteLine("3. Proceed to checkout");
+        int option = 0;
+        while (true)
+        {
+            option = Validator.Validator.GetUserNumberInt("Enter your choice:");
+            if (!Validator.Validator.InRange(option, 1, 3))
+            {
+                Console.WriteLine("Invalid Selection");
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (option == 1)
+        {
+            Console.WriteLine("What would you like to buy?");
+            Cart = Cart.Concat(addToCart(items)).ToList();
+            continue;
+        }
+        else if (option == 2)
+        {
+            Console.WriteLine("Your Cart:");
+            Console.WriteLine("-------------------------------------------------");
+            ShowCart(Cart);
+            keepShopping = !Validator.Validator.GetContinue("Proceed to checkout?");
+        }
+        else
+        {
+            Console.WriteLine("Proceeding to checkout");
+            //Console.Clear();
+            break;
+        }
+
+
+    }
+    //CHECKOUT HAS BEGUN
+    double grandTotal = Cart.Sum(p => p.Price) * 1.06;
+    Console.WriteLine("----------------------------------------------------------------------------------------------");
+    ShowCart(Cart);
+    Console.WriteLine($"Your Total is : ${Math.Round(grandTotal, 2)}");
+    Console.WriteLine("How would you like to pay?");
+    Console.WriteLine("1. Tender");
+    Console.WriteLine("2. Check");
+    Console.WriteLine("3. Credit Card");
     while (true)
     {
-        option = Validator.Validator.GetUserNumberInt("Enter your choice:");
-        if (!Validator.Validator.InRange(option, 1, 3))
+        //Validate payment choice
+        int response = Validator.Validator.GetUserNumberInt("Enter your choice:");
+        if (!Validator.Validator.InRange(response, 1, 3))
         {
             Console.WriteLine("Invalid Selection");
             continue;
         }
-        else
+        //Pay with cash
+        if (response == 1)
         {
+            Interactions.Tender(grandTotal, out double tender);
+            PrintReceipt(Cart);
+            Console.WriteLine("{0,-29}{1,-7}", "Payment Method:", "Cash");
+            Console.WriteLine("{0,-29}{1,-7}", $"Amount Tendered:", "$" + tender);
+            Console.WriteLine("{0,-29}{1,-7}", $"Change Due:", "$" + Math.Round(tender - grandTotal, 2));
+
+            break;
+        }
+        //pay with check
+        else if (response == 2)
+        {
+            string checkNumber = Interactions.CheckPayment();
+            PrintReceipt(Cart);
+            Console.WriteLine("{0,-29}{1,-7}", "Payment Method:", "Check");
+            Console.WriteLine("{0,-29}{1,-7}", $"Check Number:", checkNumber);
+
+            break;
+        }
+        //pay with card
+        else if (response == 3)
+        {
+            string cardNumber = Interactions.GetCreditNumber();
+            string cardMonth = Interactions.GetCreditCardMonth();
+            string cardYear = Interactions.GetCreditCardYear();
+            int cardCVV = Interactions.GetCVV();
+            PrintReceipt(Cart);
+            Console.WriteLine("Payment Method: Credit Card");
+            Console.WriteLine($"Card Number: {cardNumber}");
+            Console.WriteLine($"Expiration Date: {cardMonth} / {cardYear}");
+            Console.WriteLine($"CVV : {cardCVV}");
             break;
         }
     }
-    if (option == 1)
-    {
-        Console.WriteLine("What would you like to buy?");
-        Cart = Cart.Concat(addToCart(items)).ToList();
-        continue;
-    }
-    else if (option == 2)
-    {
-        //Product.Inventory(Cart);
-        ShowCart(Cart);
-        keepShopping = !Validator.Validator.GetContinue("Proceed to checkout?");
-    } 
-    else
-    {
-        Console.WriteLine("Proceeding to checkout");
-        break;
-    }
-
-
+    runProgram = Validator.Validator.GetContinue("Thank you for you purchase! Would you like to start a new order?");
 }
-//CHECKOUT HAS BEGUN
-double subtotal = Cart.Sum(p => p.Price);
-double taxAmount = .06 * subtotal;
-double grandTotal = subtotal + taxAmount;
-Console.WriteLine("----------------------------------------------------------------------------------------------");
-ShowCart(Cart);
-Console.WriteLine($"Your Total is : ${Math.Round(grandTotal, 2)}");
-Console.WriteLine("How would you like to pay?");
-Console.WriteLine("1. Tender");
-Console.WriteLine("2. Check");
-Console.WriteLine("3. Credit Card");
-while (true)
-{
-    int response = Validator.Validator.GetUserNumberInt("Enter your choice:");
-    if (!Validator.Validator.InRange(response, 1, 3))
-    {
-        Console.WriteLine("Invalid Selection");
-        continue;
-    }
-    //Pay with cash
-    if (response == 1)
-    {
-        Interactions.Tender(grandTotal);
-        PrintReceipt(Cart);
-        break;
-    }
-    //pay with check
-    else if (response == 2)
-    {
-        Interactions.CheckPayment();
-        PrintReceipt(Cart);
-        break;
-    }
-    //pay with card
-    else if (response == 3)
-    {
-        Interactions.GetCreditNumber();
-        Interactions.GetCreditCardMonth();
-        Interactions.GetCreditCardYear();
-        Interactions.GetCVV();
-        PrintReceipt(Cart);
-    }
-}
-
 
 
 
@@ -142,9 +158,9 @@ static void PrintReceipt(List<Product> cart)
     Console.WriteLine("=========================================");
     ShowCart(cart);
     Console.WriteLine("=========================================");
-    Console.WriteLine($"Subtotal:                 ${Math.Round(subtotal, 2)}");
-    Console.WriteLine($"Tax:                      ${Math.Round(taxAmount, 2)}");
-    Console.WriteLine($"Total:                    ${Math.Round(grandTotal, 2)}");
+    Console.WriteLine("{0,-29}{1,-7}", "Subtotal:", $"${Math.Round(subtotal, 2)}");
+    Console.WriteLine("{0,-29}{1,-7}", $"Tax:",$"${Math.Round(taxAmount, 2)}");
+    Console.WriteLine("{0,-29}{1,-7}", "Total", $"${ Math.Round(grandTotal, 2)}");
 }
 
 static void ShowCart(List<Product> cart)

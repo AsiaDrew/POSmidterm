@@ -8,7 +8,7 @@ namespace PointOfSale
 {
     internal class Interactions
     {
-        public static void Tender(double grandTotal)
+        public static void Tender(double grandTotal, out double tender)
         {
             //tender take money from customer, check amount, and give change if needed
             
@@ -16,7 +16,7 @@ namespace PointOfSale
             while (true)
             {
                 Console.WriteLine("How much are you paying with?");
-                double tender = double.Parse(Console.ReadLine());
+                tender = double.Parse(Console.ReadLine());
                 if (tender >= grandTotal)
                 {
                     Console.WriteLine($"Thanks, your change is ${Math.Round(tender - grandTotal, 2)} ");
@@ -25,6 +25,7 @@ namespace PointOfSale
                 else if (tender < grandTotal)
                 {
                     Console.WriteLine($"Thats not enough, you still owe ${Math.Round(grandTotal - tender, 2)}");
+                    Console.WriteLine($"Please pay full amount of ${Math.Round(grandTotal, 2)}");
                 }
                 else
                 {
