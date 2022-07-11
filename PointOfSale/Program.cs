@@ -75,20 +75,30 @@ while (keepShopping)
 
 
 }
+ShowCart(Cart);
 
-////Recipt
-//static string PrintReceipt()
-//{
-//    double subtotal = 0;
-//    double taxAmount = .06 * subtotal;
-//    double grandTotal = subtotal + taxAmount;
-//    Console.WriteLine("RECEIPT");
-//    Console.WriteLine("==========");
-//    Console.WriteLine($"Subtotal:                 ${Math.Round(subtotal, 2)}");
-//    Console.WriteLine($"Tax:                      ${Math.Round(taxAmount, 2)}");
-//    Console.WriteLine($"Total:                    ${Math.Round(grandTotal, 2)}");
-//    return PrintReceipt();
-//}
+//Recipt
+static void PrintReceipt(List<Product> cart)
+{
+    double subtotal = cart.Sum(p => p.Price);
+    double taxAmount = .06 * subtotal;
+    double grandTotal = subtotal + taxAmount;
+    Console.WriteLine("RECEIPT");
+    Console.WriteLine("==========");
+    Console.WriteLine($"Subtotal:                 ${Math.Round(subtotal, 2)}");
+    Console.WriteLine($"Tax:                      ${Math.Round(taxAmount, 2)}");
+    Console.WriteLine($"Total:                    ${Math.Round(grandTotal, 2)}");
+}
+
+static void ShowCart(List<Product> cart)
+{
+
+    var item = cart.GroupBy(p => p.Name);
+    foreach (var grp in item)
+    {
+        Console.WriteLine("{0} {1} {2} ", grp.Key, $"x{grp.Count()}", grp.Count() * grp.First().Price);
+    }
+}
 
 
 
