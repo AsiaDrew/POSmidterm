@@ -1,18 +1,13 @@
 ﻿using PointOfSale;
 
 //Initialized variables
-//double subTotal = 0;
-//double salesTax = .06;
-//double grandTotal = 0;
 bool runProgram = true;
 bool keepShopping = true;
 
 //Create empty list of store items for StreamReader to populate with products
 List<Product> items = new List<Product>();
-
 string filePath = "../../../Products.txt";
 StreamReader reader = new StreamReader(filePath);
-
 //Reads through Products txt file, products are added to List<Product> items
 while (true)
 {
@@ -139,16 +134,8 @@ while (runProgram)
 
 }
 
-
-
-
-
-
-
-
-
-
-//Recipt
+//-----Methods
+//Receipt
 static void PrintReceipt(List<Product> cart)
 {
     double subtotal = cart.Sum(p => p.Price);
@@ -173,8 +160,6 @@ static void ShowCart(List<Product> cart)
     }
 }
 
-
-
 //Method to add items to cart
 static List<Product> addToCart(List<Product> productList)
 {
@@ -188,44 +173,3 @@ static List<Product> addToCart(List<Product> productList)
     Console.WriteLine($"You have chosen: {productList[purchaseItem - 1].Name} x {purchaseQuantity} @ ${productList[purchaseItem - 1].Price} ea. = ${productList[purchaseItem - 1].Price * purchaseQuantity}");
     return CartList;
 }
-
-void PrintPayment(string method, string creditCardNumber, string creditCardMonth, string creditCardYear, int cvv, string checkNumber, double cashTender, double grandTotal)
-{
-    if (method == "credit")
-    {
-        Console.WriteLine("Payment Method: Credit Card");
-        Console.WriteLine($"Card Number: {creditCardNumber}");
-        Console.WriteLine($"Expiration Date: {creditCardMonth} / {creditCardYear}");
-        Console.WriteLine($"CVV : {cvv}");
-    }
-    else if (method == "check")
-    {
-        Console.WriteLine("Payment Method: Check");
-        Console.WriteLine($"Check Number: {checkNumber}");
-    }
-    else if (method == "cash")
-    {
-        Console.WriteLine("Payment Method:  Cash");
-        Console.WriteLine($"Amount Tendered: ${cashTender}");
-        Console.WriteLine($"Change Due: \t ${Math.Round(cashTender - grandTotal, 2)}");
-    }
-    else
-    {
-        Console.WriteLine("Payment Method:  Five finger discount.");
-    }
-    Console.WriteLine("Thank you for shopping with us.");
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
