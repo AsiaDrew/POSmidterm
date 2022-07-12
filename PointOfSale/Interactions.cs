@@ -35,7 +35,7 @@ namespace PointOfSale
 
         }
         //validate check number
-        public static string CheckPayment()
+        public static string CheckPayment(double grandTotal)
         {
             //check
             while (true)
@@ -45,6 +45,19 @@ namespace PointOfSale
                 bool check = double.TryParse($"{checkNumber}", out _);
                 if (check)
                 {
+                    while (true)
+                    {
+                        Console.WriteLine($"Please fill out check for the exact amount of ${grandTotal}.");
+                        double.TryParse(Console.ReadLine(), out double checkTotal);
+                        if(checkTotal != grandTotal)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                     return checkNumber;
                 }
                 else

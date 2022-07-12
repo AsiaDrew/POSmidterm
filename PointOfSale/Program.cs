@@ -35,7 +35,7 @@ while (runProgram)
     Cart = Cart.Concat(addToCart(items)).ToList();
     while (keepShopping)
     {
-        Console.WriteLine("What would you like to do?");
+        Console.WriteLine("\nWhat would you like to do?");
         Console.WriteLine("1. Shop");
         Console.WriteLine("2. Go to cart");
         Console.WriteLine("3. Proceed to checkout");
@@ -55,12 +55,14 @@ while (runProgram)
         }
         if (option == 1)
         {
+            Console.Clear();
             Console.WriteLine("What would you like to buy?");
             Cart = Cart.Concat(addToCart(items)).ToList();
             continue;
         }
         else if (option == 2)
         {
+            Console.Clear();
             Console.WriteLine("Your Cart:");
             Console.WriteLine("-------------------------------------------------");
             ShowCart(Cart);
@@ -68,19 +70,19 @@ while (runProgram)
         }
         else
         {
-            Console.WriteLine("Proceeding to checkout");
-            //Console.Clear();
+            Console.Clear();
             break;
         }
 
 
     }
     //CHECKOUT HAS BEGUN
-    double grandTotal = Cart.Sum(p => p.Price) * 1.06;
+    Console.WriteLine("Proceeding to checkout");
+    double grandTotal = Math.Round(Cart.Sum(p => p.Price) * 1.06, 2);
     Console.WriteLine("----------------------------------------------------------------------------------------------");
     ShowCart(Cart);
-    Console.WriteLine($"Your Total is : ${Math.Round(grandTotal, 2)}");
-    Console.WriteLine("How would you like to pay?");
+    Console.WriteLine($"\nYour Total is : ${Math.Round(grandTotal, 2)}");
+    Console.WriteLine("\nHow would you like to pay?");
     Console.WriteLine("1. Tender");
     Console.WriteLine("2. Check");
     Console.WriteLine("3. Credit Card");
@@ -107,7 +109,7 @@ while (runProgram)
         //pay with check
         else if (response == 2)
         {
-            string checkNumber = Interactions.CheckPayment();
+            string checkNumber = Interactions.CheckPayment(grandTotal);
             PrintReceipt(Cart);
             Console.WriteLine("{0,-29}{1,-7}", "Payment Method:", "Check");
             Console.WriteLine("{0,-29}{1,-7}", $"Check Number:", checkNumber);
@@ -129,9 +131,16 @@ while (runProgram)
             break;
         }
     }
-    runProgram = Validator.Validator.GetContinue("Thank you for you purchase! Would you like to start a new order?");
-    Console.Clear();
-
+    if(!Validator.Validator.GetContinue("Thank you for you purchase! Would you like to start a new order?"))
+    {
+        Console.Clear();
+        Console.WriteLine("Goodbye! Thank you for shopping at D.A.T. Store!");
+        runProgram = false;
+    }
+    else
+    {
+        Console.Clear();
+    }
 }
 
 //-----Methods
@@ -141,7 +150,7 @@ static void PrintReceipt(List<Product> cart)
     double subtotal = cart.Sum(p => p.Price);
     double taxAmount = .06 * subtotal;
     double grandTotal = subtotal + taxAmount;
-    Console.WriteLine("RECEIPT");
+    Console.WriteLine("\nRECEIPT");
     Console.WriteLine("=========================================");
     ShowCart(cart);
     Console.WriteLine("=========================================");
