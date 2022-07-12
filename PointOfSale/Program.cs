@@ -63,9 +63,21 @@ while (runProgram)
         else if (option == 2)
         {
             Console.Clear();
-            Console.WriteLine("Your Cart:");
-            Console.WriteLine("---------------------------------------");
-            ShowCart(Cart);
+            while(true)
+            {
+                Console.WriteLine("Your Cart:");
+                Console.WriteLine("---------------------------------------");
+                ShowCart(Cart);
+                if (Validator.Validator.GetContinue("Remove anything from cart?"))
+                {
+                    Console.Clear();
+                    ShowCart(Cart);
+                    Console.WriteLine("\nWhat would you like to remove?");
+
+
+                }
+            }
+
             keepShopping = !Validator.Validator.GetContinue("\nProceed to checkout?");
             Console.Clear();
         }
@@ -170,7 +182,7 @@ static void ShowCart(List<Product> cart)
     }
 }
 
-//Method to add items to cart
+//Add items to cart
 static List<Product> addToCart(List<Product> productList)
 {
     List<Product> CartList = new List<Product>();
@@ -207,4 +219,34 @@ static List<Product> addToCart(List<Product> productList)
     CartList.AddRange(Enumerable.Repeat(productList[purchaseItem - 1], purchaseQuantity).ToList());
     Console.WriteLine($"You have chosen: {productList[purchaseItem - 1].Name} x {purchaseQuantity} @ ${productList[purchaseItem - 1].Price} ea. = ${(productList[purchaseItem - 1].Price * purchaseQuantity):N2}");
     return CartList;
+}
+//Remove from cart
+static List<Product> RemoveFromCart(List<Product> cartList)
+{
+    int purchaseItem = 0;
+    while (true)
+    {
+        purchaseItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to remove from your cart? (Enter a #)");
+        if (!Validator.Validator.InRange(purchaseItem, 1, cartList.Count()))
+        {
+            Console.WriteLine("That product is not an option, please select again.");
+        }
+        else
+        {
+            break;
+        }
+    }
+    int purchaseQuantity = 0;
+    while (true)
+    {
+        purchaseQuantity = Validator.Validator.GetUserNumberInt("How many would you like to remove?");
+        if (purchaseQuantity <= 0)
+        {
+            Console.WriteLine("Please enter a positive quantity");
+        }
+        else
+        {
+            break;
+        }
+    }
 }
