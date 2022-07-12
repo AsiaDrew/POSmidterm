@@ -71,10 +71,7 @@ while (runProgram)
                 if (Validator.Validator.GetContinue("Remove anything from cart?") && Cart.Count > 0)
                 {
                     Console.Clear();
-                    //ShowCart(Cart);
-                    //Console.WriteLine("\nWhat would you like to remove?");
-                    RemoveFromCart(Cart, items);
-
+                    RemoveFromCart(Cart);
                 }
                 else if (Cart.Count <= 0)
                 {
@@ -122,8 +119,8 @@ while (runProgram)
             Interactions.Tender(grandTotal, out double tender);
             PrintReceipt(Cart);
             Console.WriteLine("{0,-29}{1,-7}", "Payment Method:", "Cash");
-            Console.WriteLine("{0,-29}{1,-7}", $"Amount Tendered:", "$" + tender);
-            Console.WriteLine("{0,-29}{1,-7}", $"Change Due:", "$" + Math.Round(tender - grandTotal, 2));
+            Console.WriteLine("{0,-29}{1,-7}", "Amount Tendered:", "$" + tender);
+            Console.WriteLine("{0,-29}{1,-7}", "Change Due:", "$" + Math.Round(tender - grandTotal, 2));
 
             break;
         }
@@ -133,8 +130,7 @@ while (runProgram)
             string checkNumber = Interactions.CheckPayment(grandTotal);
             PrintReceipt(Cart);
             Console.WriteLine("{0,-29}{1,-7}", "Payment Method:", "Check");
-            Console.WriteLine("{0,-29}{1,-7}", $"Check Number:", checkNumber);
-
+            Console.WriteLine("{0,-29}{1,-7}", "Check Number:", checkNumber);
             break;
         }
         //pay with card
@@ -232,7 +228,7 @@ static List<Product> addToCart(List<Product> productList)
     return CartList;
 }
 //Remove from cart
-static void RemoveFromCart(List<Product> cartList, List<Product> productList)
+static void RemoveFromCart(List<Product> cartList)
 {
      ShowCart(cartList);
     var item = cartList.GroupBy(p => p.Name);
@@ -274,9 +270,5 @@ static void RemoveFromCart(List<Product> cartList, List<Product> productList)
             break;
         }
     }
-    
-
-
     cartList.RemoveRange(cartList.IndexOf(result), removeQuantity);
-    //return cartList;
 }
