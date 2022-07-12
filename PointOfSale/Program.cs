@@ -78,6 +78,10 @@ while (runProgram)
                     Console.WriteLine("Cart is empty.");
                     break;
                 }
+                else
+                {
+                    break;
+                }
             }
             if (Cart.Count <= 0)
             {
@@ -101,7 +105,7 @@ while (runProgram)
     ShowCart(Cart);
     Console.WriteLine($"\nYour Total is : ${Math.Round(grandTotal, 2)}");
     Console.WriteLine("\nHow would you like to pay?");
-    Console.WriteLine("1. Tender");
+    Console.WriteLine("1. Cash");
     Console.WriteLine("2. Check");
     Console.WriteLine("3. Credit Card");
     while (true)
@@ -148,7 +152,7 @@ while (runProgram)
             break;
         }
     }
-    if (!Validator.Validator.GetContinue("Thank you for you purchase! Would you like to start a new order?"))
+    if (!Validator.Validator.GetContinue("\nThank you for you purchase! Would you like to start a new order?"))
     {
         Console.Clear();
         Console.WriteLine("Goodbye! Thank you for shopping at D.A.T. Store!");
@@ -160,7 +164,8 @@ while (runProgram)
     }
 }
 
-//-----Methods
+//METHODS------------------------------------------------------------------------------
+
 //Receipt
 static void PrintReceipt(List<Product> cart)
 {

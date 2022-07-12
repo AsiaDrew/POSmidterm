@@ -8,7 +8,7 @@ Oven,Kitchen,The ultimate pizza burning accessory of 2022.,459.99
 Pillow,Bedroom,Lay your head on a piece of Heaven.,25.99
 Blanket,Bedroom,Perfect for cold winter nights and the ultimate fort builder.,34.49
 Decorative Rock,Garden,Because where else will you be hiding your keys?,15.99
-Cinammon Bun,Food,Smells a lot better than it tatses.,1.99
+Cinammon Bun,Food,Smells a lot better than it tatses.,6.99
 Shroom,Food,We wouldn't be the store we are today without offering you a mushroom or two.,99.99
 Stuffed Giraffe,Toys,Rest in peace Toy's R Us...,14.99
 Cheese grater,Kitchen,Master the art of shredding cheese with this handy grater!,6.65
