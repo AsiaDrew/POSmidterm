@@ -64,9 +64,10 @@ while (runProgram)
         {
             Console.Clear();
             Console.WriteLine("Your Cart:");
-            Console.WriteLine("-------------------------------------------------");
+            Console.WriteLine("-------------------------------------------");
             ShowCart(Cart);
-            keepShopping = !Validator.Validator.GetContinue("Proceed to checkout?");
+            keepShopping = !Validator.Validator.GetContinue("\nProceed to checkout?");
+            Console.Clear();
         }
         else
         {
