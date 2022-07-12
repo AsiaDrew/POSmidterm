@@ -30,7 +30,7 @@ reader.Close();
 
 while (runProgram)
 {
-    Console.WriteLine("Welcome to D.A.T Store!"); 
+    Console.WriteLine("Welcome to D.A.T Store!");
     List<Product> Cart = new List<Product>();
     Cart = Cart.Concat(addToCart(items)).ToList();
     while (keepShopping)
@@ -63,7 +63,7 @@ while (runProgram)
         else if (option == 2)
         {
             Console.Clear();
-            while(true)
+            while (true)
             {
                 Console.WriteLine("Your Cart:");
                 Console.WriteLine("---------------------------------------");
@@ -144,7 +144,7 @@ while (runProgram)
             break;
         }
     }
-    if(!Validator.Validator.GetContinue("Thank you for you purchase! Would you like to start a new order?"))
+    if (!Validator.Validator.GetContinue("Thank you for you purchase! Would you like to start a new order?"))
     {
         Console.Clear();
         Console.WriteLine("Goodbye! Thank you for shopping at D.A.T. Store!");
@@ -168,8 +168,8 @@ static void PrintReceipt(List<Product> cart)
     ShowCart(cart);
     Console.WriteLine("=========================================");
     Console.WriteLine("{0,-29}{1,-7}", "Subtotal:", $"${Math.Round(subtotal, 2)}");
-    Console.WriteLine("{0,-29}{1,-7}", $"Tax:",$"${Math.Round(taxAmount, 2)}");
-    Console.WriteLine("{0,-29}{1,-7}", "Total", $"${ Math.Round(grandTotal, 2)}");
+    Console.WriteLine("{0,-29}{1,-7}", $"Tax:", $"${Math.Round(taxAmount, 2)}");
+    Console.WriteLine("{0,-29}{1,-7}", "Total", $"${Math.Round(grandTotal, 2)}");
 }
 
 static void ShowCart(List<Product> cart)
@@ -178,7 +178,7 @@ static void ShowCart(List<Product> cart)
     var item = cart.GroupBy(p => p.Name);
     foreach (var grp in item)
     {
-        Console.WriteLine("{0,-20} {1,-7} {2,-7} ", grp.Key, $"x{grp.Count()}",$"${grp.Count() * grp.First().Price:N2}");
+        Console.WriteLine("{0,-20} {1,-7} {2,-7} ", grp.Key, $"x{grp.Count()}", $"${grp.Count() * grp.First().Price:N2}");
     }
 }
 
@@ -215,7 +215,7 @@ static List<Product> addToCart(List<Product> productList)
             break;
         }
     }
-    
+    //line total
     CartList.AddRange(Enumerable.Repeat(productList[purchaseItem - 1], purchaseQuantity).ToList());
     Console.WriteLine($"You have chosen: {productList[purchaseItem - 1].Name} x {purchaseQuantity} @ ${productList[purchaseItem - 1].Price} ea. = ${(productList[purchaseItem - 1].Price * purchaseQuantity):N2}");
     return CartList;
@@ -223,11 +223,14 @@ static List<Product> addToCart(List<Product> productList)
 //Remove from cart
 static List<Product> RemoveFromCart(List<Product> cartList)
 {
-    int purchaseItem = 0;
+    cartList = cartList.OrderBy(x => x.Name).ToList();
+    Product.Inventory(cartList);
+    //picked an item within their cart
+    int removeItem = 0;
     while (true)
     {
-        purchaseItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to remove from your cart? (Enter a #)");
-        if (!Validator.Validator.InRange(purchaseItem, 1, cartList.Count()))
+        removeItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to remove from your cart? (Enter a #)");
+        if (!Validator.Validator.InRange(removeItem, 1, cartList.Count()))
         {
             Console.WriteLine("That product is not an option, please select again.");
         }
@@ -236,11 +239,11 @@ static List<Product> RemoveFromCart(List<Product> cartList)
             break;
         }
     }
-    int purchaseQuantity = 0;
+    int removeQuantity = 0;
     while (true)
     {
-        purchaseQuantity = Validator.Validator.GetUserNumberInt("How many would you like to remove?");
-        if (purchaseQuantity <= 0)
+        removeQuantity = Validator.Validator.GetUserNumberInt("How many would you like to remove?");
+        if (removeQuantity <= 0)
         {
             Console.WriteLine("Please enter a positive quantity");
         }
@@ -249,4 +252,6 @@ static List<Product> RemoveFromCart(List<Product> cartList)
             break;
         }
     }
+    cartList.RemoveRange(removeItem, removeQuantity);
+    return cartList;
 }
