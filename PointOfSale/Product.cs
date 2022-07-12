@@ -32,7 +32,7 @@ namespace PointOfSale
         }
         public override string ToString()
         {
-            return String.Format("{0, -20}{1, -10}{2, -78}{3, -8}",$"{Name}", $"{Category}", $"{Description}", $"{Price}");
+            return String.Format("{0, -20}{1, -10}{2, -78}{3, -8}",$"{Name}", $"{Category}", $"{Description}", $"${Price}");
         }
 
     }
