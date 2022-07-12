@@ -64,7 +64,7 @@ while (runProgram)
         {
             Console.Clear();
             Console.WriteLine("Your Cart:");
-            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("---------------------------------------");
             ShowCart(Cart);
             keepShopping = !Validator.Validator.GetContinue("\nProceed to checkout?");
             Console.Clear();
@@ -80,7 +80,7 @@ while (runProgram)
     //CHECKOUT HAS BEGUN
     Console.WriteLine("Proceeding to checkout");
     double grandTotal = Math.Round(Cart.Sum(p => p.Price) * 1.06, 2);
-    Console.WriteLine("----------------------------------------------------------------------------------------------");
+    Console.WriteLine("-------------------------------------");
     ShowCart(Cart);
     Console.WriteLine($"\nYour Total is : ${Math.Round(grandTotal, 2)}");
     Console.WriteLine("\nHow would you like to pay?");
@@ -174,13 +174,13 @@ static void ShowCart(List<Product> cart)
 static List<Product> addToCart(List<Product> productList)
 {
     List<Product> CartList = new List<Product>();
-    Console.WriteLine("{0, -4}{1, -20}{2, -10}{3, -78}{4, -8}", "#", "Name", "Item", "Desctription", "Price");
+    Console.WriteLine("{0, -4}{1, -20}{2, -10}{3, -78}{4, -8}", "#", "Name", "Category", "Description", "Price");
     Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
     Product.Inventory(productList); // display items
     int purchaseItem = 0;
     while (true)
     {
-        purchaseItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to add to your cart?");
+        purchaseItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to add to your cart? (Enter a #)");
         if (!Validator.Validator.InRange(purchaseItem, 1, productList.Count()))
         {
             Console.WriteLine("That product is not an option, please select again.");

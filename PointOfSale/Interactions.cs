@@ -48,6 +48,7 @@ namespace PointOfSale
                     while (true)
                     {
                         Console.WriteLine($"Please fill out check for the exact amount of ${grandTotal}.");
+                        Console.Write("$");
                         double.TryParse(Console.ReadLine(), out double checkTotal);
                         if(checkTotal != grandTotal)
                         {
