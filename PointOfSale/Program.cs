@@ -68,16 +68,24 @@ while (runProgram)
                 Console.WriteLine("Your Cart:");
                 Console.WriteLine("---------------------------------------");
                 ShowCart(Cart);
-                if (Validator.Validator.GetContinue("Remove anything from cart?"))
+                if (Validator.Validator.GetContinue("Remove anything from cart?") && Cart.Count > 0)
                 {
                     Console.Clear();
                     //ShowCart(Cart);
                     //Console.WriteLine("\nWhat would you like to remove?");
-                    RemoveFromCart(Cart);
+                    RemoveFromCart(Cart, items);
 
                 }
+                else if (Cart.Count <= 0)
+                {
+                    Console.WriteLine("Cart is empty.");
+                    break;
+                }
             }
-
+            if (Cart.Count <= 0)
+            {
+                continue;
+            }
             keepShopping = !Validator.Validator.GetContinue("\nProceed to checkout?");
             Console.Clear();
         }
@@ -176,9 +184,12 @@ static void ShowCart(List<Product> cart)
 {
 
     var item = cart.GroupBy(p => p.Name);
+    int index = 1;
     foreach (var grp in item)
     {
-        Console.WriteLine("{0,-20} {1,-7} {2,-7} ", grp.Key, $"x{grp.Count()}", $"${grp.Count() * grp.First().Price:N2}");
+        
+        Console.WriteLine("{0, -3}{1,-20} {2,-7} {3,-7} ",index, grp.Key, $"x{grp.Count()}", $"${grp.Count() * grp.First().Price:N2}");
+        index++;
     }
 }
 
@@ -221,16 +232,16 @@ static List<Product> addToCart(List<Product> productList)
     return CartList;
 }
 //Remove from cart
-static void RemoveFromCart(List<Product> cartList)
+static void RemoveFromCart(List<Product> cartList, List<Product> productList)
 {
-    cartList = cartList.OrderBy(x => x.Name).ToList();
-    Product.Inventory(cartList);
+     ShowCart(cartList);
+    var item = cartList.GroupBy(p => p.Name);
     //picked an item within their cart
     int removeItem = 0;
     while (true)
     {
         removeItem = Validator.Validator.GetUserNumberInt("\nWhat product would you like to remove from your cart? (Enter a #)");
-        if (!Validator.Validator.InRange(removeItem, 1, cartList.Count()))
+        if (!Validator.Validator.InRange(removeItem, 1, item.Count()))
         {
             Console.WriteLine("That product is not an option, please select again.");
         }
@@ -239,11 +250,22 @@ static void RemoveFromCart(List<Product> cartList)
             break;
         }
     }
+    int index = 1;
+    Product result = null;
+    foreach (var grp in item)
+    {
+        if (index == removeItem)
+        {
+            result = grp.First();
+        }
+        index++;
+
+    }
     int removeQuantity = 0;
     while (true)
     {
         removeQuantity = Validator.Validator.GetUserNumberInt("How many would you like to remove?");
-        if (removeQuantity <= 0)
+        if (removeQuantity <= 0 || removeQuantity > cartList.Where(i => i.Name == result.Name).Count())
         {
             Console.WriteLine("Please enter a positive quantity");
         }
@@ -252,7 +274,9 @@ static void RemoveFromCart(List<Product> cartList)
             break;
         }
     }
-    int FirstIndex = cartList.FindIndex(item => item == cartList[removeItem]);
-    cartList.RemoveRange(FirstIndex, removeQuantity);
+    
+
+
+    cartList.RemoveRange(cartList.IndexOf(result), removeQuantity);
     //return cartList;
 }
