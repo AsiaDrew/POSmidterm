@@ -71,9 +71,9 @@ while (runProgram)
                 if (Validator.Validator.GetContinue("Remove anything from cart?"))
                 {
                     Console.Clear();
-                    ShowCart(Cart);
-                    Console.WriteLine("\nWhat would you like to remove?");
-
+                    //ShowCart(Cart);
+                    //Console.WriteLine("\nWhat would you like to remove?");
+                    RemoveFromCart(Cart);
 
                 }
             }
@@ -221,7 +221,7 @@ static List<Product> addToCart(List<Product> productList)
     return CartList;
 }
 //Remove from cart
-static List<Product> RemoveFromCart(List<Product> cartList)
+static void RemoveFromCart(List<Product> cartList)
 {
     cartList = cartList.OrderBy(x => x.Name).ToList();
     Product.Inventory(cartList);
@@ -252,6 +252,7 @@ static List<Product> RemoveFromCart(List<Product> cartList)
             break;
         }
     }
-    cartList.RemoveRange(removeItem, removeQuantity);
-    return cartList;
+    int FirstIndex = cartList.FindIndex(item => item == cartList[removeItem]);
+    cartList.RemoveRange(FirstIndex, removeQuantity);
+    //return cartList;
 }
